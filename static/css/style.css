@@ -1,0 +1,45 @@
+/* BuildFit Demo Styles */
+body {
+    background-color: #f8f9fa;
+}
+
+.workout-exercises {
+    font-size: 0.9em;
+}
+
+.card {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.badge {
+    font-size: 0.7em;
+}
+
+code {
+    font-size: 0.8em;
+    background-color: #f1f3f4;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.alert-heading {
+    color: #0c5460;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+.card-body h2 {
+    margin-bottom: 0;
+}
+
+#progress-result {
+    max-height: 200px;
+    overflow-y: auto;
+}

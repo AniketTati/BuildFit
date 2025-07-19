@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuildFit - Fitness Tracking Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <strong>BuildFit</strong>
+            </a>
+            <div class="navbar-nav ms-auto">
+                <span class="navbar-text">
+                    Fitness Tracking Demo
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-info" role="alert">
+                    <h4 class="alert-heading">Welcome to BuildFit Demo!</h4>
+                    <p>This is a minimal working version of the BuildFit fitness tracking application. 
+                       It demonstrates core features like workout management, user tracking, and progress logging.</p>
+                    <hr>
+                    <p class="mb-0"><strong>Features:</strong> Workout library, user management, progress tracking via REST API</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card text-white bg-success">
+                    <div class="card-body">
+                        <h5 class="card-title">Active Users</h5>
+                        <h2 class="card-text">{{ total_users }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-primary">
+                    <div class="card-body">
+                        <h5 class="card-title">Available Workouts</h5>
+                        <h2 class="card-text">{{ total_workouts }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-warning">
+                    <div class="card-body">
+                        <h5 class="card-title">API Status</h5>
+                        <h2 class="card-text" id="api-status">Checking...</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h3>Available Workouts</h3>
+                <div class="row">
+                    {% for workout in workouts %}
+                    <div class="col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ workout.name }}</h5>
+                                <p class="card-text">
+                                    <small class="text-muted">Created by {{ workout.creator }}</small>
+                                </p>
+                                <div class="workout-exercises">
+                                    <strong>Exercises:</strong>
+                                    <ul class="list-unstyled mt-2">
+                                        {% for exercise in workout.exercises %}
+                                        <li>
+                                            <span class="badge bg-secondary me-1">{{ loop.index }}</span>
+                                            {{ exercise.name }}
+                                            {% if exercise.sets %}
+                                                - {{ exercise.sets }} sets
+                                            {% endif %}
+                                            {% if exercise.reps %}
+                                                of {{ exercise.reps }} reps
+                                            {% endif %}
+                                            {% if exercise.duration %}
+                                                for {{ exercise.duration }}
+                                            {% endif %}
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <button class="btn btn-primary btn-sm" onclick="completeWorkout({{ workout.id }}, '{{ workout.name }}')">
+                                    Complete Workout
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <h3>Quick Actions</h3>
+                
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Create User</h5>
+                        <form id="create-user-form">
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="username" placeholder="Username" required>
+                            </div>
+                            <div class="mb-2">
+                                <input type="email" class="form-control" id="email" placeholder="Email" required>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-sm">Create User</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">API Endpoints</h5>
+                        <div class="small">
+                            <div><code>GET /api/workouts</code> - List workouts</div>
+                            <div><code>POST /api/workouts</code> - Create workout</div>
+                            <div><code>POST /api/users</code> - Create user</div>
+                            <div><code>GET /health</code> - Health check</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Check Progress</h5>
+                        <form id="progress-form">
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="progress-username" placeholder="Username" required>
+                            </div>
+                            <button type="submit" class="btn btn-info btn-sm">View Progress</button>
+                        </form>
+                        <div id="progress-result" class="mt-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light text-center text-muted py-4 mt-5">
+        <div class="container">
+            <p>&copy; 2024 BuildFit - Minimal Demo Version | 
+               <a href="https://github.com/AniketTati/BuildFit" target="_blank">GitHub Repository</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
