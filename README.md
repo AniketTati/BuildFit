@@ -37,6 +37,8 @@ To get started on GitHub with the **BuildFit** project, here’s a breakdown of 
    - **Backend**: Node.js with Express (API), Firebase, or Supabase (authentication and data storage)
    - **Database**: Firebase Firestore, SQLite (on-device), or PostgreSQL for data persistence
 
+BuildFit is a cross-platform app for Android and iOS.
+
    ## Installation
    Instructions on setting up the development environment and running the app will go here.
    ```
