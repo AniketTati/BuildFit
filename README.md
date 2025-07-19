@@ -59,4 +59,31 @@ BuildFit is a cross-platform app for Android and iOS.
    - Make an initial commit with the structure and files above.
    - Create GitHub issues for each feature area to map out the work, such as "Set up home screen UI," "Implement workout plan creator," and "Integrate Firebase for data storage."
 
+## 📋 Project Organization & Task Management
+
+This project uses a comprehensive task management system to track development progress across all areas. For detailed project planning and task assignments, see:
+
+### 🗺️ Project Planning
+- **[Project Roadmap](PROJECT_ROADMAP.md)** - Complete project timeline and phases
+- **[Task Assignment & Tracking](docs/TASK_TRACKING.md)** - Team assignments and progress monitoring
+
+### 📊 Detailed Task Lists
+- **[Core Features & Modules](docs/tasks/CORE_FEATURES.md)** - Authentication, workout builder, progress tracking
+- **[UI/UX Design Tasks](docs/tasks/UI_UX_TASKS.md)** - Design system, wireframes, visual design
+- **[Backend Setup & Integration](docs/tasks/BACKEND_TASKS.md)** - API development, database, infrastructure
+- **[Testing & QA](docs/tasks/TESTING_TASKS.md)** - Unit testing, integration testing, user acceptance
+- **[Deployment & Release](docs/tasks/DEPLOYMENT_TASKS.md)** - App store preparation, launch strategy
+
+### 🎯 Getting Started
+1. Review the [Project Roadmap](PROJECT_ROADMAP.md) for overall timeline
+2. Check [Task Tracking](docs/TASK_TRACKING.md) for current assignments
+3. Pick up tasks from your team's category based on current sprint
+4. Update task status and communicate progress regularly
+
+### 📈 Progress Tracking
+- **Total Tasks**: 250+ across all categories
+- **Estimated Timeline**: 20+ weeks
+- **Team Size**: 6-8 members recommended
+- **Current Phase**: Foundation & Setup
+
 Would you like specific guidance on the tech stack or feature design?
