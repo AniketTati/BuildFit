@@ -2,7 +2,7 @@
  * Shared utility functions for BuildFit application
  */
 
-import { VALIDATION, UNITS } from '../constants';
+import { VALIDATION } from '../constants';
 
 // Validation Utilities
 export const validation = {
