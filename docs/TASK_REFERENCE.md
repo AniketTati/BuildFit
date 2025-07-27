@@ -106,6 +106,94 @@
 └── ✅ Redux store configuration
 ```
 
+### 🔥 High Priority Missing Core Features
+
+| Priority | Task ID | Title | Category | Estimate | Status |
+|----------|---------|-------|----------|----------|---------|
+| **1** | WORKOUT-EXEC-001 | **Workout Session Manager** | Mobile | 4 days | **Critical** |
+| **2** | WORKOUT-EXEC-002 | **Exercise Step-by-Step UI** | Mobile | 3 days | **Critical** |
+| **3** | WORKOUT-EXEC-003 | **Live Timers & Progression** | Mobile | 3 days | **Critical** |
+| **4** | WORKOUT-BUILD-001 | **Simple Workout Builder** | Mobile | 4 days | **Critical** |
+| **5** | WORKOUT-BUILD-002 | **Exercise Selection Interface** | Mobile | 2 days | **Critical** |
+| **6** | WORKOUT-SHARE-001 | **Publish/Browse Workouts** | Full-Stack | 5 days | High |
+| **7** | WORKOUT-TRACK-001 | **Session Time Tracking** | Mobile | 2 days | **Critical** |
+| **8** | WORKOUT-CALENDAR-001 | **Workout Calendar & Stats** | Mobile | 3 days | **Critical** |
+| **9** | WORKOUT-PROGRESS-001 | **Progressive Difficulty System** | Mobile | 4 days | **Critical** |
+| **10** | WORKOUT-ANALYTICS-001 | **Effort & Calorie Tracking** | Mobile | 3 days | **Critical** |
+| **11** | WORKOUT-FEEDBACK-001 | **User Feedback & Auto-Adjustment** | Mobile | 3 days | High |
+
+### Current Implementation Status
+
+#### ✅ Completed Core Features
+
+**1. Project Foundation (100% Complete)**
+```
+✅ PROJECT-001: Monorepo Structure (Complete)
+├── Mobile app directory with React Native 0.72
+├── Backend directory with Express.js setup
+├── Shared directory with TypeScript types
+└── Documentation and setup scripts
+
+✅ PROJECT-002: Development Environment (Complete)
+├── ESLint and Prettier configuration
+├── Jest testing framework setup
+├── Package management for all modules
+└── Git configuration and workflows
+
+✅ PROJECT-003: Database Foundation (Complete)
+├── PostgreSQL database setup
+├── Knex.js migration system
+├── User management schema
+├── Exercise database schema
+└── Workout plans schema
+```
+
+**2. Backend Infrastructure (80% Complete)**
+```
+✅ BACKEND-001: Server Setup (Complete)
+├── Express.js server with security middleware
+├── CORS, Helmet, Rate limiting
+├── Environment configuration
+└── Database connection
+
+✅ BACKEND-002: Database Models (Complete)
+├── User table with comprehensive fields
+├── Exercise table with metadata
+├── Workout plans with relationships
+└── Migration system setup
+
+🔄 BACKEND-003: Authentication (Complete)
+├── ✅ JWT middleware implementation
+├── ✅ Password hashing service
+├── ✅ User registration endpoint
+├── ✅ Login/logout endpoints
+├── ✅ Token refresh functionality
+├── ✅ Input validation schemas
+├── ✅ User model with database operations
+└── ✅ Authentication tests
+```
+
+**3. Mobile App Foundation (70% Complete)**
+```
+✅ MOBILE-001: Project Setup (Complete)
+├── React Native 0.72 configuration
+├── TypeScript integration
+├── Navigation dependencies installed
+└── State management dependencies
+
+✅ MOBILE-002: Basic UI (Complete)
+├── Button component with styling
+├── Input component with validation
+├── Authentication screens layout
+└── Home screen foundation
+
+🔄 MOBILE-003: Navigation (Complete)
+├── ✅ Stack navigator setup
+├── ✅ Tab navigator implementation
+├── ✅ Authentication flow routing
+└── ✅ Redux store configuration
+```
+
 ## Detailed Task Specifications
 
 ### Backend Development Tasks
@@ -262,28 +350,40 @@
 - Set up testing infrastructure
 - Create foundational API endpoints
 
-### 📋 Sprint 5-6: Exercise System (Weeks 9-12) - PLANNED
-**Status**: Ready to Start
+### 📋 Sprint 5-6: Core Workout Features (Weeks 9-12) - **NEXT CRITICAL SPRINT**
+**Status**: Ready to Start - **HIGHEST PRIORITY**
 **Target Start**: August 15, 2025
 
-**Focus**: Exercise database and management system
+**Focus**: Build the core workout execution and creation experience
 
-**Backend Team**:
-- EXERCISE-SEED-001: Seed exercise database
-- EXERCISE-API-001: Exercise CRUD endpoints
-- EXERCISE-API-002: Search and filtering APIs
-- MEDIA-001: Image/video upload for exercises
+**Mobile Team** (Critical Tasks):
+- WORKOUT-EXEC-001: Workout Session Manager (4 days)
+- WORKOUT-EXEC-002: Exercise Step-by-Step UI (3 days)
+- WORKOUT-EXEC-003: Live Timers & Progression (3 days)
+- WORKOUT-BUILD-001: Simple Workout Builder (4 days)
+- WORKOUT-BUILD-002: Exercise Selection Interface (2 days)
+- WORKOUT-TRACK-001: Session Time Tracking (2 days)
+- WORKOUT-CALENDAR-001: Workout Calendar & Stats (3 days)
+- WORKOUT-PROGRESS-001: Progressive Difficulty System (4 days)
+- WORKOUT-ANALYTICS-001: Effort & Calorie Tracking (3 days)
+- WORKOUT-FEEDBACK-001: User Feedback & Auto-Adjustment (3 days)
+- WORKOUT-CALENDAR-001: Workout Calendar & Stats (3 days)
+- WORKOUT-PROGRESS-001: Progressive Difficulty System (4 days)
 
-**Frontend Team**:
-- EXERCISE-SCREENS-001: Exercise browser UI
-- EXERCISE-SCREENS-002: Exercise detail view
-- SEARCH-001: Exercise search and filtering
-- FAVORITES-001: Exercise favorites system
+**Backend Team** (Supporting Tasks):
+- EXERCISE-SEED-001: Exercise database seeding (2 days)
+- WORKOUT-API-001: Workout CRUD endpoints (3 days)
+- SESSION-API-001: Workout session tracking APIs (2 days)
 
-**QA Team**:
-- EXERCISE-TEST-001: Exercise API testing
-- SEARCH-TEST-001: Search functionality testing
-- UI-TEST-001: Exercise screens testing
+**Sprint Goals**:
+- Users can create simple custom workouts
+- Users can run workouts with live guidance and timers
+- Real-time session tracking and progression
+- Complete workout execution experience
+- Calendar-based workout tracking and statistics
+- Intelligent difficulty progression based on performance
+- Comprehensive effort and calorie tracking
+- Foundation for community sharing features
 
 ## Development Guidelines
 
@@ -310,3 +410,133 @@
 ---
 
 *This reference consolidates the most critical tasks from the detailed specifications. For complete task details, refer to the original task files in the repository history.*
+
+## Detailed Core Workout Feature Specifications
+
+### Workout Execution Engine Tasks
+
+#### WORKOUT-EXEC-001: Workout Session Manager (4 days) - **CRITICAL**
+**Description**: Real-time workout session state management
+- Session start/pause/resume/stop controls
+- Current exercise tracking and progression
+- Session state persistence (if app closes/backgrounds)
+- Workout completion detection and summary
+- Integration with Redux store for session state
+
+#### WORKOUT-EXEC-002: Exercise Step-by-Step UI (3 days) - **CRITICAL**  
+**Description**: Live workout guidance interface
+- Current exercise display with instructions
+- Progress indicator (Exercise X of Y)
+- Large, clear "Next" and "Previous" buttons
+- Exercise demonstration (text/image placeholders)
+- Simple, distraction-free workout view
+
+#### WORKOUT-EXEC-003: Live Timers & Progression (3 days) - **CRITICAL**
+**Description**: Real-time timing and progression controls
+- Exercise timer (count-up for time-based exercises)
+- Rest period countdown timer
+- Auto-progression options
+- Audio/vibration cues for transitions
+- Manual skip/extend timer controls
+
+#### WORKOUT-BUILD-001: Simple Workout Builder (4 days) - **CRITICAL**
+**Description**: Easy workout creation interface
+- Add exercises from database or create custom
+- Set reps/sets/time/rest for each exercise
+- Reorder exercises with drag-and-drop or buttons
+- Preview workout before saving
+- Save as personal template
+
+#### WORKOUT-BUILD-002: Exercise Selection Interface (2 days) - **CRITICAL**
+**Description**: Exercise picker for workout builder
+- Browse exercise database with search/filter
+- Quick exercise addition to workout
+- Custom exercise creation (name, type, instructions)
+- Exercise favorites and recent selections
+- Exercise details view with instructions
+
+#### WORKOUT-TRACK-001: Session Time Tracking (2 days) - **CRITICAL**
+**Description**: Comprehensive workout session tracking
+- Total workout duration tracking
+- Individual exercise completion times
+- Rest period actual vs planned tracking
+- Session summary with statistics
+- History and progress data storage
+
+#### WORKOUT-CALENDAR-001: Workout Calendar & Stats (3 days) - **CRITICAL**
+**Description**: Calendar view with workout tracking and statistics
+- Monthly/weekly calendar view showing workout history
+- Visual indicators for workout completion, intensity, duration
+- Daily/weekly/monthly statistics (workouts completed, calories burned, time spent)
+- Streak tracking and consistency metrics
+- Export workout data and progress reports
+
+#### WORKOUT-ANALYTICS-001: Effort & Calorie Tracking (3 days) - **CRITICAL**
+**Description**: Comprehensive workout analytics and effort measurement
+- Calorie estimation based on exercise type, duration, and user profile
+- Effort tracking (perceived exertion, heart rate if available)
+- Workout intensity scoring (easy, moderate, hard)
+- Performance metrics (average rest time, completion speed)
+- Progress trends and improvement tracking
+
+#### WORKOUT-PROGRESS-001: Progressive Difficulty System (4 days) - **CRITICAL**
+**Description**: Intelligent workout progression and difficulty adjustment
+- Automatic progression rules (increase reps/sets/time over time)
+- Performance-based adjustments (if user completes workout quickly/easily)
+- User profile-based recommendations (fitness level, goals)
+- Custom progression schedules (beginner, intermediate, advanced)
+- Smart rest period adjustments based on performance
+
+#### WORKOUT-FEEDBACK-001: User Feedback & Auto-Adjustment (3 days) - HIGH PRIORITY
+**Description**: Post-workout feedback system for automatic difficulty adjustment
+- Post-workout difficulty rating (too easy, just right, too hard)
+- Completion time analysis for auto-adjustment triggers
+- Rest period usage tracking (skipped/extended rest periods)
+- Exercise-specific feedback (this exercise was too easy/hard)
+- Smart workout modification suggestions
+
+### Advanced User Flow Examples
+
+**Progressive Difficulty Journey:**
+1. User completes a workout in 15 minutes (planned for 20 minutes)
+2. App tracks completion speed and asks "How did that feel?" (Easy/Perfect/Hard)
+3. User indicates "Easy" - app suggests increasing difficulty for next session
+4. Next workout: +2 reps per exercise or -10 seconds rest time
+5. Over time, app learns user's progression pattern and auto-adjusts
+
+**Calendar & Analytics Journey:**
+1. User opens Progress tab and sees calendar view
+2. Calendar shows workout days with color-coded intensity (green=easy, yellow=moderate, red=hard)
+3. User taps a day to see workout summary (duration, calories, exercises completed)
+4. Weekly view shows consistency metrics (5/7 days worked out, 450 calories burned)
+5. Monthly trends show improvement in workout frequency and intensity
+
+### Enhanced UI Components Needed
+
+**Additional Critical Components:**
+1. **WorkoutCalendarScreen** - Monthly/weekly calendar with workout history
+2. **WorkoutStatsCard** - Daily/weekly/monthly statistics display
+3. **ProgressionModal** - Configure automatic difficulty progression
+4. **FeedbackModal** - Post-workout difficulty and effort rating
+5. **AnalyticsCharts** - Visual progress trends and statistics
+6. **CalorieCalculator** - Real-time calorie estimation during workout
+
+### Progression Logic Examples
+
+**Automatic Progression Triggers:**
+- **Time-based**: If user completes workout >20% faster than target, increase difficulty
+- **Feedback-based**: If user rates workout "Easy" 3 times in a row, auto-increase
+- **Consistency-based**: After 1 week of consistent completion, suggest progression
+- **Performance-based**: If rest periods are consistently skipped, reduce default rest time
+
+**Progression Types:**
+- **Reps/Sets**: Jumping jacks 30 → 35 → 40 over time
+- **Duration**: Plank 30s → 45s → 60s progression
+- **Rest Time**: 30s rest → 25s → 20s for improved conditioning
+- **Exercise Variants**: Push-ups → Incline push-ups → Diamond push-ups
+
+**Calendar & Stats Features:**
+- **Workout Heat Map**: Visual representation of workout frequency and intensity
+- **Calorie Goals**: Daily/weekly calorie burn targets with progress tracking
+- **Consistency Scoring**: Workout frequency percentage and streak tracking
+- **Performance Trends**: Charts showing improvement over time (faster completion, higher intensity)

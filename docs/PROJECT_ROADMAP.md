@@ -29,28 +29,47 @@
 - [ ] API integration layer
 - [ ] Error handling and loading states
 
-### Phase 4: Exercise System (Weeks 9-12)
+### Phase 4: Workout Execution Engine (Weeks 9-12) - **CORE FEATURE**
+- [ ] Real-time workout session management
+- [ ] Step-by-step exercise guidance interface
+- [ ] Live timers for exercises and rest periods
+- [ ] Workout progression controls (Next/Previous/Pause)
+- [ ] Session state persistence and recovery
+- [ ] Audio/visual cues for exercise transitions
+
+### Phase 5: Workout Builder (Weeks 13-16) - **CORE FEATURE**
+- [ ] Simple workout creation interface
+- [ ] Exercise selection with custom sets/reps/time
+- [ ] Rest period configuration between exercises
+- [ ] Workout preview and testing
+- [ ] Save workout templates and favorites
+- [ ] Workout editing and duplication
+
+### Phase 6: Workout Sharing & Discovery (Weeks 17-20)
+- [ ] Publish workouts to community
+- [ ] Browse and search public workouts
+- [ ] Copy and customize existing workouts
+- [ ] Workout rating and review system
+- [ ] User workout collections
+- [ ] Social features (follow creators, like workouts)
+
+### Phase 7: Exercise System (Weeks 21-24)
 - [ ] Exercise database seeding
 - [ ] Exercise search and filtering
 - [ ] Custom exercise creation
 - [ ] Exercise instruction display
 - [ ] Media upload for exercises
 
-### Phase 5: Workout Builder (Weeks 13-16)
-- [ ] Workout plan creation
-- [ ] Drag-and-drop exercise builder
-- [ ] Workout templates
-- [ ] Workout sharing functionality
-- [ ] Workout execution tracking
-
-### Phase 6: Progress Tracking (Weeks 17-20)
+### Phase 8: Progress Tracking (Weeks 25-28)
 - [ ] Workout logging system
 - [ ] Progress analytics and charts
 - [ ] Photo progress tracking
 - [ ] Statistics and insights
 - [ ] Goal setting and achievements
 
-## Current Progress: 45% Complete
+## Current Progress: 75% → Target: Complete Core Workout Features
+
+**Focus Shift**: Now that we have solid foundation (auth + navigation), we need to prioritize the **core workout execution experience** that makes this app valuable to users.
 
 ### ✅ Completed Tasks
 **Foundation & Infrastructure (100% Complete)**

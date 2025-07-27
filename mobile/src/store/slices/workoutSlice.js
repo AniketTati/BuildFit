@@ -7,9 +7,24 @@ const initialState = {
   workoutPlans: [],
   activeWorkoutPlan: null,
   workoutHistory: [],
+  workoutCalendar: {}, // { 'YYYY-MM-DD': { workouts: [], totalCalories: 0, totalDuration: 0 } }
+  workoutAnalytics: {
+    weeklyStats: { workouts: 0, calories: 0, duration: 0 },
+    monthlyStats: { workouts: 0, calories: 0, duration: 0 },
+    consistencyScore: 0, // percentage of days with workouts
+    averageIntensity: 0, // 1-5 scale
+    progressionTrend: 'stable', // 'improving', 'stable', 'declining'
+  },
   templates: [],
   isLoading: false,
   error: null,
+  workoutStats: {
+    totalWorkouts: 0,
+    totalCalories: 0,
+    totalDuration: 0,
+  },
+  workoutCalendar: [],
+  workoutAnalytics: {},
 };
 
 // Workout slice
@@ -140,6 +155,57 @@ const workoutSlice = createSlice({
     resetWorkouts: (state) => {
       return initialState;
     },
+    
+    // Workout completion tracking
+    completeWorkout: (state, action) => {
+      const { workoutId, completionData, difficulty, caloriesBurned, effortRating } = action.payload;
+      const completedSession = {
+        workoutId,
+        completedAt: new Date().toISOString(),
+        duration: completionData.duration,
+        exercisesCompleted: completionData.exercisesCompleted,
+        difficulty,
+        caloriesBurned,
+        effortRating, // 1-5 scale (1=very easy, 5=very hard)
+        averageRestTime: completionData.averageRestTime,
+        completionSpeed: completionData.completionSpeed, // vs planned duration
+        ...completionData,
+      };
+      
+      state.workoutHistory.unshift(completedSession);
+      
+      // Update workout stats
+      state.workoutStats = {
+        ...state.workoutStats,
+        totalWorkouts: state.workoutStats.totalWorkouts + 1,
+        totalCalories: (state.workoutStats.totalCalories || 0) + caloriesBurned,
+        totalDuration: (state.workoutStats.totalDuration || 0) + completionData.duration,
+      };
+    },
+    
+    // Update workout difficulty based on performance/feedback
+    updateWorkoutDifficulty: (state, action) => {
+      const { workoutId, difficultyAdjustment, reason } = action.payload;
+      const workout = state.workouts.find(w => w.id === workoutId);
+      if (workout) {
+        workout.currentDifficulty = (workout.currentDifficulty || 1) + difficultyAdjustment;
+        workout.lastAdjustment = {
+          date: new Date().toISOString(),
+          adjustment: difficultyAdjustment,
+          reason, // 'user_feedback', 'completion_speed', 'auto_progression'
+        };
+      }
+    },
+    
+    // Set workout calendar data
+    setWorkoutCalendar: (state, action) => {
+      state.workoutCalendar = action.payload;
+    },
+    
+    // Add workout analytics data
+    updateWorkoutAnalytics: (state, action) => {
+      state.workoutAnalytics = { ...state.workoutAnalytics, ...action.payload };
+    },
   },
 });
 
@@ -163,6 +229,10 @@ export const {
   setError,
   clearError,
   resetWorkouts,
+  completeWorkout,
+  updateWorkoutDifficulty,
+  setWorkoutCalendar,
+  updateWorkoutAnalytics,
 } = workoutSlice.actions;
 
 // Selectors
@@ -174,6 +244,9 @@ export const selectWorkoutHistory = (state) => state.workout.workoutHistory;
 export const selectTemplates = (state) => state.workout.templates;
 export const selectWorkoutLoading = (state) => state.workout.isLoading;
 export const selectWorkoutError = (state) => state.workout.error;
+export const selectWorkoutStats = (state) => state.workout.workoutStats;
+export const selectWorkoutCalendar = (state) => state.workout.workoutCalendar;
+export const selectWorkoutAnalytics = (state) => state.workout.workoutAnalytics;
 
 // Export reducer
 export default workoutSlice.reducer;
