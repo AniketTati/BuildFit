@@ -1,89 +1,215 @@
-To get started on GitHub with the **BuildFit** project, here’s a breakdown of the essential setup and initial files to add:
+# BuildFit
 
-### 1. **Repository Structure**
-   Set up the following folder structure in your GitHub repository:
+**BuildFit** is a cross-platform mobile application designed to democratize fitness regime sharing, track fitness progress, and maintain user motivation throughout their fitness journey.
+
+## 🏗️ Project Structure
+
+```
+BuildFit/
+├── mobile/                 # React Native mobile application
+│   ├── src/               # Mobile app source code
+│   ├── config/            # App configuration
+│   └── README.md          # Mobile app documentation
+├── backend/               # Node.js Express API server
+│   ├── src/               # Backend source code
+│   └── README.md          # Backend documentation
+├── shared/                # Shared code between mobile and backend
+│   ├── types/             # TypeScript type definitions
+│   ├── constants/         # Shared constants and enums
+│   └── utils/             # Shared utility functions
+├── docs/                  # Project documentation
+│   ├── DEVELOPMENT_GUIDE.md # Complete development guide
+│   └── PROJECT_ROADMAP.md   # Roadmap and progress
+├── setup.sh / setup.bat   # Automated setup scripts
+└── README.md              # This file
+```
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- **Node.js** 16 or higher
+- **PostgreSQL** 12 or higher (for backend)
+- **Android Studio** (for Android development)
+- **Xcode** (for iOS development - macOS only)
+
+### Setup
+
+1. **Clone and setup**:
+   ```bash
+   git clone <repository-url>
+   cd BuildFit
+   
+   # Run setup script
+   ./setup.sh      # Linux/macOS
+   ./setup.bat     # Windows
    ```
-   BuildFit/
-   ├── README.md
-   ├── LICENSE
-   ├── .gitignore
-   ├── app/
-   │   ├── assets/             # Images, icons, and other static resources
-   │   ├── components/         # Reusable UI components like buttons, cards, etc.
-   │   ├── screens/            # Screens (Home, Profile, Workout Plans, etc.)
-   │   ├── utils/              # Helper functions
-   │   ├── navigation/         # App navigation setup (React Navigation or similar)
-   │   ├── hooks/              # Custom hooks for managing state, e.g., fitness tracking
-   │   └── App.js              # Main entry point of the app
-   ├── docs/                   # Documentation files, images for README, etc.
-   └── tests/                  # Testing folder for unit and integration tests
+
+2. **Backend setup**:
+   ```bash
+   cd backend
+   # Edit .env with your database credentials
+   npm run migrate
+   npm run dev
    ```
 
-### 2. **README.md**
-   Create an initial `README.md` to outline the project goals, setup, and usage.
-
-   ```markdown
-   # BuildFit
-   **BuildFit** is a mobile app designed to democratize the sharing of fitness regimes, track fitness progress, and keep users motivated on their fitness journey.
-
-   ## Features
-   - **Custom Workout Plans**: Design personalized workout routines.
-   - **Progress Tracking**: Log workouts and monitor progress over time.
-   - **Community Sharing**: Access and share workout plans with the BuildFit community.
-   - **Motivation**: Set goals, track achievements, and receive motivational insights.
-
-   ## Tech Stack
-   - **Frontend**: Flutter or React Native (pending choice)
-   - **Backend**: Node.js with Express (API), Firebase, or Supabase (authentication and data storage)
-   - **Database**: Firebase Firestore, SQLite (on-device), or PostgreSQL for data persistence
-
-BuildFit is a cross-platform app for Android and iOS.
-
-   ## Installation
-   Instructions on setting up the development environment and running the app will go here.
+3. **Mobile app setup**:
+   ```bash
+   cd mobile
+   npm start       # Start Metro bundler
+   npm run android # Run on Android (new terminal)
+   npm run ios     # Run on iOS (macOS only)
    ```
 
-### 3. **LICENSE**
-   Add a suitable open-source license like MIT, GPL, or Apache 2.0.
+## 🛠️ Technology Stack
 
-### 4. **App Design Outline**
-   Develop a basic outline for core features and screens to document initial requirements:
-   - **Welcome & Onboarding**: Guide new users on app features.
-   - **Home Screen**: Overview of daily workouts, progress tracking, and goals.
-   - **Workout Plan Creator**: Allow users to create and customize workout plans.
-   - **Progress Tracker**: Visual tracking of progress, with options for photo logs, weights, etc.
-   - **Community Section**: Access shared workouts, rate plans, and connect with other users.
-   - **Profile**: Personal settings, goals, and historical workout data.
+### Mobile App
+- **Framework**: React Native 0.72+
+- **Language**: JavaScript/TypeScript
+- **State Management**: Redux Toolkit
+- **Navigation**: React Navigation v6
+- **UI**: Custom component library
+- **Testing**: Jest + React Native Testing Library
 
-### 5. **Initial Commit and Issues**
-   - Make an initial commit with the structure and files above.
-   - Create GitHub issues for each feature area to map out the work, such as "Set up home screen UI," "Implement workout plan creator," and "Integrate Firebase for data storage."
+### Backend
+- **Runtime**: Node.js + Express.js
+- **Database**: PostgreSQL + Knex.js
+- **Authentication**: JWT
+- **Validation**: Joi
+- **Testing**: Jest + Supertest
 
-## 📋 Project Organization & Task Management
+### Shared
+- **Types**: TypeScript
+- **Constants**: Environment-agnostic constants
+- **Utils**: Cross-platform utility functions
 
-This project uses a comprehensive task management system to track development progress across all areas. For detailed project planning and task assignments, see:
+## 📱 Features
 
-### 🗺️ Project Planning
-- **[Project Roadmap](PROJECT_ROADMAP.md)** - Complete project timeline and phases
-- **[Task Assignment & Tracking](docs/TASK_TRACKING.md)** - Team assignments and progress monitoring
+### Core Features
+- **Custom Workout Plans**: Design personalized workout routines
+- **Exercise Library**: Comprehensive database with instructions and videos
+- **Progress Tracking**: Log workouts and monitor progress over time
+- **Community Sharing**: Access and share workout plans with the community
+- **Analytics**: Visual progress charts and performance insights
+- **Social Features**: Follow friends, share achievements, motivation
 
-### 📊 Detailed Task Lists
-- **[Core Features & Modules](docs/tasks/CORE_FEATURES.md)** - Authentication, workout builder, progress tracking
-- **[UI/UX Design Tasks](docs/tasks/UI_UX_TASKS.md)** - Design system, wireframes, visual design
-- **[Backend Setup & Integration](docs/tasks/BACKEND_TASKS.md)** - API development, database, infrastructure
-- **[Testing & QA](docs/tasks/TESTING_TASKS.md)** - Unit testing, integration testing, user acceptance
-- **[Deployment & Release](docs/tasks/DEPLOYMENT_TASKS.md)** - App store preparation, launch strategy
+### Planned Features
+- **AI Workout Recommendations**: Personalized suggestions based on goals
+- **Nutrition Tracking**: Meal planning and calorie tracking
+- **Wearable Integration**: Sync with fitness trackers and smartwatches
+- **Virtual Personal Trainer**: Guided workout sessions
+- **Challenges**: Community challenges and competitions
 
-### 🎯 Getting Started
-1. Review the [Project Roadmap](PROJECT_ROADMAP.md) for overall timeline
-2. Check [Task Tracking](docs/TASK_TRACKING.md) for current assignments
-3. Pick up tasks from your team's category based on current sprint
-4. Update task status and communicate progress regularly
+## 📋 Development
 
-### 📈 Progress Tracking
-- **Total Tasks**: 250+ across all categories
-- **Estimated Timeline**: 20+ weeks
-- **Team Size**: 6-8 members recommended
-- **Current Phase**: Foundation & Setup
+### Project Organization
 
-Would you like specific guidance on the tech stack or feature design?
+This project follows a monorepo structure with clear separation of concerns:
+
+- **`mobile/`**: Contains the React Native mobile application
+- **`backend/`**: Contains the Node.js API server
+- **`shared/`**: Contains code shared between mobile and backend
+- **`docs/`**: Contains all project documentation and planning
+
+### Development Workflow
+
+1. **Pick a task** from the [Task Reference](docs/TASK_REFERENCE.md)
+2. **Create a feature branch**: `feature/TASK-ID-description`
+3. **Follow guidelines** in the [Development Guide](docs/DEVELOPMENT_GUIDE.md)
+4. **Test your changes** with provided test suites
+5. **Submit a pull request** with clear description
+
+### Code Quality
+
+- **ESLint + Prettier** for consistent code formatting
+- **TypeScript** for type safety
+- **Jest** for comprehensive testing
+- **Husky** for pre-commit hooks (planned)
+- **Conventional Commits** for clear commit messages
+
+## 🧪 Testing
+
+```bash
+# Mobile app tests
+cd mobile
+npm test
+
+# Backend tests
+cd backend
+npm test
+
+# Run all tests
+npm run test:all  # (from root)
+```
+
+## 🚀 Deployment
+
+### Mobile App
+- **Android**: Generate AAB for Google Play Store
+- **iOS**: Archive and submit to App Store Connect
+
+### Backend
+- **Staging**: Automated deployment on merge to `develop`
+- **Production**: Manual deployment from `main` branch
+- **Infrastructure**: Docker containers on cloud platform
+
+## 📚 Documentation
+
+- **[Development Guide](docs/DEVELOPMENT_GUIDE.md)** - Complete setup, development instructions, and detailed feature specifications
+- **[Project Roadmap](docs/PROJECT_ROADMAP.md)** - Timeline, progress, and next steps
+- **[Task Reference](docs/TASK_REFERENCE.md)** - Detailed task breakdowns and sprint planning reference
+- **[Mobile App](mobile/README.md)** - React Native app documentation
+- **[Backend API](backend/README.md)** - Server setup and API documentation
+
+## 📊 Progress
+
+- **Current Phase**: Authentication & Core Features (65% complete)
+- **Foundation**: 100% complete ✅
+- **Overall Progress**: 45% complete
+- **Active Sprint**: 3-4 (Authentication System)
+- **Team Size**: 6-8 developers recommended
+
+### Recent Completions
+- ✅ Complete monorepo structure and development environment
+- ✅ Mobile app foundation with React Native 0.72 and dependencies
+- ✅ Backend API foundation with Express.js and security middleware
+- ✅ Comprehensive database schema (users, exercises, workout_plans)
+- ✅ Shared TypeScript types (320+ lines) and utilities
+- ✅ Development tooling and automated setup scripts
+
+### Currently Active (Sprint 3-4: Aug 1-14, 2025)
+- 🔄 JWT authentication middleware implementation
+- 🔄 User registration and login API endpoints
+- 🔄 React Navigation setup with authentication flow
+- 🔄 Redux store configuration with persistence
+- 🔄 Testing framework setup and initial tests
+
+### Next Sprint Priorities (Sprint 5-6: Aug 15-28, 2025)
+- � Exercise database seeding with comprehensive data
+- 📋 Exercise management API endpoints
+- 📋 Exercise browser and search UI screens
+- 📋 Custom exercise creation functionality
+- � Media upload system for exercise demonstrations
+
+## 🤝 Contributing
+
+1. **Read** the [Development Guide](docs/DEVELOPMENT_GUIDE.md) for development guidelines
+2. **Check** existing tasks in [Task Reference](docs/TASK_REFERENCE.md)
+3. **Follow** the established code style and patterns
+4. **Write tests** for new features
+5. **Update documentation** as needed
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+## 📞 Support
+
+- **Issues**: GitHub Issues
+- **Discussions**: GitHub Discussions
+- **Email**: support@buildfit.app (planned)
+- **Documentation**: [Wiki](../../wiki) (planned)
+
+---
+
+**BuildFit** - Your fitness journey starts here! 💪
