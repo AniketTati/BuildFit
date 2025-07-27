@@ -4,6 +4,13 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   workouts: [],
   currentWorkout: null,
+  // Session Management State
+  currentSession: null,
+  isSessionActive: false,
+  isPaused: false,
+  currentExerciseIndex: 0,
+  sessionStartTime: null,
+  totalSessionTime: 0,
   workoutPlans: [],
   activeWorkoutPlan: null,
   workoutHistory: [],
@@ -25,6 +32,12 @@ const initialState = {
   },
   workoutCalendar: [],
   workoutAnalytics: {},
+  currentSession: null,
+  isSessionActive: false,
+  isPaused: false,
+  sessionStartTime: null,
+  totalSessionTime: 0,
+  currentExerciseIndex: 0,
 };
 
 // Workout slice
@@ -206,6 +219,95 @@ const workoutSlice = createSlice({
     updateWorkoutAnalytics: (state, action) => {
       state.workoutAnalytics = { ...state.workoutAnalytics, ...action.payload };
     },
+
+    // Session Management Actions
+    startSession: (state, action) => {
+      const { workoutId, workout } = action.payload;
+      // Use provided workout data or find in state
+      const workoutData = workout || state.workouts.find(w => w.id === workoutId);
+      if (workoutData) {
+        state.currentSession = {
+          ...workoutData,
+          sessionId: Date.now().toString(),
+          startTime: new Date().toISOString(),
+          status: 'active',
+          isPaused: false,
+          totalSessionTime: 0,
+        };
+        state.currentExerciseIndex = 0;
+        state.isSessionActive = true;
+        state.isPaused = false;
+        state.sessionStartTime = Date.now();
+      }
+    },
+
+    pauseSession: (state) => {
+      if (state.currentSession) {
+        state.isPaused = true;
+        state.currentSession.pausedAt = new Date().toISOString();
+      }
+    },
+
+    resumeSession: (state) => {
+      if (state.currentSession) {
+        state.isPaused = false;
+        state.currentSession.resumedAt = new Date().toISOString();
+      }
+    },
+
+    nextExercise: (state) => {
+      if (state.currentSession && state.currentExerciseIndex < state.currentSession.exercises.length - 1) {
+        state.currentExerciseIndex += 1;
+      }
+    },
+
+    previousExercise: (state) => {
+      if (state.currentSession && state.currentExerciseIndex > 0) {
+        state.currentExerciseIndex -= 1;
+      }
+    },
+
+    updateSessionTime: (state) => {
+      if (state.currentSession && !state.isPaused) {
+        const now = Date.now();
+        state.totalSessionTime = Math.floor((now - state.sessionStartTime) / 1000);
+        state.currentSession.totalSessionTime = state.totalSessionTime;
+      }
+    },
+
+    setCurrentExercise: (state, action) => {
+      state.currentExerciseIndex = action.payload;
+    },
+
+    completeSession: (state, action) => {
+      const { difficulty, totalTime, exercisesCompleted } = action.payload;
+      if (state.currentSession) {
+        const completedSession = {
+          ...state.currentSession,
+          endTime: new Date().toISOString(),
+          status: 'completed',
+          difficulty,
+          totalTime,
+          exercisesCompleted,
+          caloriesBurned: Math.round(totalTime * 0.1), // Simple estimation
+        };
+        
+        state.workoutHistory.unshift(completedSession);
+        state.currentSession = null;
+        state.isSessionActive = false;
+        state.isPaused = false;
+        state.currentExerciseIndex = 0;
+        state.totalSessionTime = 0;
+        
+        // Update stats
+        state.workoutStats = {
+          ...state.workoutStats,
+          totalWorkouts: state.workoutStats.totalWorkouts + 1,
+          totalCalories: (state.workoutStats.totalCalories || 0) + Math.round(totalTime * 0.1),
+          totalDuration: (state.workoutStats.totalDuration || 0) + totalTime,
+        };
+      }
+    },
   },
 });
 
@@ -220,6 +322,16 @@ export const {
   endWorkout,
   updateCurrentWorkout,
   completeSet,
+  // Session Management Actions
+  startSession,
+  pauseSession,
+  resumeSession,
+  nextExercise,
+  previousExercise,
+  updateSessionTime,
+  setCurrentExercise,
+  completeSession,
+  // ...existing code...
   setWorkoutPlans,
   addWorkoutPlan,
   setActiveWorkoutPlan,
@@ -247,6 +359,12 @@ export const selectWorkoutError = (state) => state.workout.error;
 export const selectWorkoutStats = (state) => state.workout.workoutStats;
 export const selectWorkoutCalendar = (state) => state.workout.workoutCalendar;
 export const selectWorkoutAnalytics = (state) => state.workout.workoutAnalytics;
+export const selectCurrentSession = (state) => state.workout.currentSession;
+export const selectIsSessionActive = (state) => state.workout.isSessionActive;
+export const selectIsPaused = (state) => state.workout.isPaused;
+export const selectSessionStartTime = (state) => state.workout.sessionStartTime;
+export const selectTotalSessionTime = (state) => state.workout.totalSessionTime;
+export const selectCurrentExerciseIndex = (state) => state.workout.currentExerciseIndex;
 
 // Export reducer
 export default workoutSlice.reducer;
