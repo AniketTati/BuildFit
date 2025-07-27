@@ -30,6 +30,9 @@ app.use(morgan('combined'));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
+// Import routes
+const authRoutes = require('./routes/auth');
+
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.json({
@@ -39,6 +42,9 @@ app.get('/health', (req, res) => {
     version: '0.1.0'
   });
 });
+
+// API routes
+app.use('/api/v1/auth', authRoutes);
 
 // API routes placeholder
 app.get('/api/v1', (req, res) => {
