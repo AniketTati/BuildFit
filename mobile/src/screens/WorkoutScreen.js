@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,19 +7,25 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { setWorkouts } from '../store/slices/workoutSlice';
 
 /**
  * Workout Screen
  * Displays workout lists, plans, and workout creation options
  */
 const WorkoutScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const { workouts } = useSelector(state => state.workout);
+
   const sampleWorkouts = [
     {
-      id: 1,
+      id: 'sample-1',
       name: 'Quick Morning Routine',
       description: 'A 10-minute energizing workout to start your day',
       duration: 600, // 10 minutes in seconds
+      isSample: true,
       exercises: [
         {
           id: 1,
@@ -61,10 +67,11 @@ const WorkoutScreen = ({ navigation }) => {
       ],
     },
     {
-      id: 2,
+      id: 'sample-2',
       name: 'Core Crusher',
       description: 'Intensive 15-minute core workout',
       duration: 900, // 15 minutes
+      isSample: true,
       exercises: [
         {
           id: 1,
@@ -107,10 +114,11 @@ const WorkoutScreen = ({ navigation }) => {
       ],
     },
     {
-      id: 3,
+      id: 'sample-3',
       name: 'Full Body HIIT',
       description: 'High intensity 20-minute full body workout',
       duration: 1200, // 20 minutes
+      isSample: true,
       exercises: [
         {
           id: 1,
@@ -154,6 +162,17 @@ const WorkoutScreen = ({ navigation }) => {
       ],
     },
   ];
+
+  // Initialize sample workouts if no workouts exist
+  useEffect(() => {
+    if (workouts.length === 0) {
+      dispatch(setWorkouts(sampleWorkouts));
+    }
+  }, []);
+
+  // Separate custom and sample workouts
+  const customWorkouts = workouts.filter(workout => workout.isCustom);
+  const displaySampleWorkouts = workouts.filter(workout => workout.isSample);
 
   const workoutPlans = [
     { id: 1, name: 'Push Pull Legs', exercises: 12, duration: '6 weeks' },
@@ -201,18 +220,60 @@ const WorkoutScreen = ({ navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity 
               style={[styles.quickAction, { backgroundColor: '#4ECDC4' }]}
-              onPress={() => navigation.navigate('CreateWorkout')}
+              onPress={() => navigation.navigate('WorkoutBuilder')}
             >
               <Icon name="add" size={32} color="#FFFFFF" />
-              <Text style={styles.quickActionText}>Create Plan</Text>
+              <Text style={styles.quickActionText}>Create Workout</Text>
             </TouchableOpacity>
           </View>
         </View>
 
+        {/* Custom Workouts */}
+        {customWorkouts.length > 0 && (
+          <View style={styles.section}>
+            <View style={styles.sectionHeader}>
+              <Text style={styles.sectionTitle}>My Custom Workouts</Text>
+              <TouchableOpacity 
+                style={styles.viewAllButton}
+                onPress={() => navigation.navigate('WorkoutBuilder')}
+              >
+                <Icon name="add" size={16} color="#4CAF50" />
+                <Text style={styles.viewAllText}>Create New</Text>
+              </TouchableOpacity>
+            </View>
+            {customWorkouts.map((workout) => (
+              <TouchableOpacity 
+                key={workout.id} 
+                style={[styles.workoutCard, styles.customWorkoutCard]}
+                onPress={() => startWorkout(workout)}
+              >
+                <View style={styles.workoutInfo}>
+                  <Text style={styles.workoutName}>{workout.name}</Text>
+                  <Text style={styles.workoutDescription}>{workout.description}</Text>
+                  <View style={styles.workoutMetaRow}>
+                    <Text style={styles.workoutMeta}>
+                      {workout.exercises.length} exercises • {Math.round(workout.duration / 60)} min
+                    </Text>
+                    <View style={styles.customBadge}>
+                      <Text style={styles.customBadgeText}>CUSTOM</Text>
+                    </View>
+                  </View>
+                </View>
+                <TouchableOpacity 
+                  style={styles.startButton}
+                  onPress={() => startWorkout(workout)}
+                >
+                  <Icon name="play-arrow" size={24} color="#FFFFFF" />
+                </TouchableOpacity>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+
         {/* Sample Workouts */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Ready to Go Workouts</Text>
-          {sampleWorkouts.map((workout) => (
+          {displaySampleWorkouts.map((workout) => (
             <TouchableOpacity 
               key={workout.id} 
               style={styles.workoutCard}
@@ -421,6 +482,46 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  viewAllButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
+  viewAllText: {
+    fontSize: 14,
+    color: '#4CAF50',
+    fontWeight: '500',
+    marginLeft: 4,
+  },
+  customWorkoutCard: {
+    borderLeftWidth: 4,
+    borderLeftColor: '#4CAF50',
+    backgroundColor: '#f8fff8',
+  },
+  workoutMetaRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 4,
+  },
+  customBadge: {
+    backgroundColor: '#4CAF50',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 10,
+  },
+  customBadgeText: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: '#fff',
   },
 });
 
