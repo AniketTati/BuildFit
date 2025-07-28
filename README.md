@@ -4,7 +4,18 @@
 
 BuildFit is a cross-platform mobile application that enables users to create custom workouts, track fitness progress, and share workout routines with a vibrant community.
 
+> **🚀 Quick Start Options:**
+> - **GitHub Codespaces**: One-click cloud development environment (recommended for new contributors)
+> - **Local Development**: Traditional setup on your machine
+
 ## � Current Status (95% Complete)
+
+**Quick Navigation:**
+- [🚀 Quick Start](#-quick-start) - Local development and GitHub Codespaces setup
+- [🏗️ Project Structure](#️-project-structure) - Codebase organization
+- [🛠️ Technology Stack](#️-technology-stack) - Tech overview
+- [🔧 Troubleshooting](#-troubleshooting) - Common issues and solutions
+- [📖 Documentation](#-documentation) - Detailed guides
 
 ### ✅ Completed Features
 - **Authentication System** - JWT with secure login/register
@@ -39,7 +50,7 @@ BuildFit/
 - React Native development environment
 - Android Studio (for Android) / Xcode (for iOS, macOS only)
 
-### Setup
+### Local Development Setup
 ```bash
 # Clone and setup
 git clone [repository]
@@ -57,6 +68,114 @@ cd mobile
 npm install
 npm start              # Metro bundler
 npm run android        # or npm run ios
+```
+
+### 🚀 GitHub Codespaces Setup
+
+> [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/AniketTati/BuildFit)
+
+GitHub Codespaces provides a complete cloud development environment with all dependencies pre-configured.
+
+#### One-Click Setup
+1. **Open in Codespaces**: Click the "Code" button → "Codespaces" → "Create codespace on main"
+2. **Wait for Setup**: The environment will automatically install dependencies (3-5 minutes)
+3. **Start Development**: All services will be ready to use
+
+#### Development Environment Comparison
+
+| Feature | GitHub Codespaces | Local Development |
+|---------|-------------------|-------------------|
+| **Setup Time** | 3-5 minutes (automated) | 15-30 minutes (manual) |
+| **Prerequisites** | Just a browser | Node.js, PostgreSQL, Android Studio/Xcode |
+| **Database** | ✅ Auto-configured PostgreSQL | ⚙️ Manual PostgreSQL setup |
+| **Environment Variables** | ✅ Pre-configured | ⚙️ Manual .env configuration |
+| **Port Forwarding** | ✅ Automatic (3000, 8081, 5432) | ⚙️ localhost only |
+| **VS Code Extensions** | ✅ Auto-installed | ⚙️ Manual installation |
+| **Mobile Device Testing** | ❌ Limited (web preview only) | ✅ Full device testing |
+| **Performance** | ⚙️ Cloud-dependent | ✅ Local machine speed |
+| **Collaboration** | ✅ Easy sharing | ⚙️ Complex setup sharing |
+
+**Recommendation:** Use **Codespaces** for quick development, API testing, and collaboration. Use **Local Development** for mobile device testing and when you need full control over the environment.
+
+#### Environment Configuration
+Codespaces automatically configures:
+- ✅ Node.js 16+ with npm
+- ✅ PostgreSQL 12+ service 
+- ✅ All project dependencies
+- ✅ Environment variables
+- ✅ Port forwarding for API and development servers
+
+#### Running the Application in Codespaces
+
+**Start the Backend API:**
+```bash
+cd backend
+cp .env.example .env    # Environment is pre-configured for Codespaces
+npm run migrate         # Setup database tables
+npm run seed           # Load sample data (optional)
+npm run dev            # Start API server
+```
+*API will be available at forwarded port 3000*
+
+**Start the Mobile Development Server:**
+```bash
+cd mobile
+npm start              # Start Metro bundler
+```
+*Metro bundler will be available at forwarded port 8081*
+
+#### Codespaces Environment Variables
+
+The following environment variables are automatically configured for Codespaces:
+
+**Backend (.env):**
+```bash
+# Database (PostgreSQL service)
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=buildfit_dev
+DB_USER=postgres
+DB_PASSWORD=postgres
+
+# API Server
+PORT=3000
+NODE_ENV=development
+
+# CORS (allows Codespaces preview URLs)
+ALLOWED_ORIGINS=*
+
+# JWT Secrets (development only)
+JWT_SECRET=codespaces_dev_secret_change_in_production
+JWT_REFRESH_SECRET=codespaces_refresh_secret_change_in_production
+```
+
+#### Port Forwarding in Codespaces
+
+Codespaces automatically forwards these ports:
+- **3000**: Backend API server
+- **8081**: React Native Metro bundler
+- **5432**: PostgreSQL database (if needed for external tools)
+
+Access your application:
+- **API**: `https://[codespace-name]-3000.githubpreview.dev`
+- **Metro**: `https://[codespace-name]-8081.githubpreview.dev`
+
+#### Mobile App Testing in Codespaces
+
+Since Codespaces runs in the cloud, you cannot directly run the mobile app on physical devices. However, you can:
+
+1. **API Testing**: Use the forwarded API URL for testing backend functionality
+2. **Web Preview**: Access Metro bundler web interface for React Native debugging
+3. **Local Development**: Use GitHub CLI to sync changes to your local machine for device testing
+
+**Sync to Local for Device Testing:**
+```bash
+# On your local machine
+gh repo clone [your-repo]
+cd BuildFit
+git pull origin [your-branch]
+npm run install:all
+npm run android  # or ios
 ```
 
 ## 🛠️ Technology Stack
@@ -214,6 +333,87 @@ npm run test:all  # (from root)
 - 📋 Exercise browser and search UI screens
 - 📋 Custom exercise creation functionality
 - � Media upload system for exercise demonstrations
+
+## 🔧 Troubleshooting
+
+### GitHub Codespaces Issues
+
+**Port Forwarding Not Working:**
+```bash
+# Check if services are running
+ps aux | grep node
+ps aux | grep postgres
+
+# Restart services if needed
+cd backend && npm run dev
+cd mobile && npm start
+```
+
+**Database Connection Issues:**
+```bash
+# Check PostgreSQL service
+sudo service postgresql status
+
+# Restart PostgreSQL if needed
+sudo service postgresql restart
+
+# Reset database
+cd backend
+npm run migrate
+```
+
+**Environment Variables Not Loading:**
+```bash
+# Verify .env file exists and has correct values
+cd backend && cat .env
+
+# Copy from example if missing
+cp .env.example .env
+```
+
+**Mobile Metro Bundler Issues:**
+```bash
+# Clear Metro cache
+cd mobile
+npx react-native start --reset-cache
+
+# Or restart with fresh cache
+rm -rf node_modules/.cache
+npm start
+```
+
+**Performance Issues in Codespaces:**
+- Use 4-core or 8-core Codespace for better performance
+- Avoid running both backend and mobile simultaneously if experiencing slowness
+- Close unused browser tabs and VS Code extensions
+
+**CORS Errors:**
+Update `backend/.env` ALLOWED_ORIGINS to include your Codespace URL:
+```bash
+ALLOWED_ORIGINS=https://[your-codespace-name]-3000.githubpreview.dev,https://[your-codespace-name]-8081.githubpreview.dev
+```
+
+### Local Development Issues
+
+**PostgreSQL Connection:**
+```bash
+# Check if PostgreSQL is running
+pg_ctl status
+
+# Start PostgreSQL service
+brew services start postgresql  # macOS
+sudo systemctl start postgresql # Linux
+```
+
+**React Native Setup:**
+```bash
+# Android development
+npx react-native doctor    # Check environment
+adb devices                # Check connected devices
+
+# iOS development (macOS only)
+cd ios && pod install      # Install CocoaPods dependencies
+```
 
 ## 🤝 Contributing
 
