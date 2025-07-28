@@ -72,12 +72,30 @@ npm run android        # or npm run ios
 
 ### 🚀 GitHub Codespaces Setup
 
+> [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/AniketTati/BuildFit)
+
 GitHub Codespaces provides a complete cloud development environment with all dependencies pre-configured.
 
 #### One-Click Setup
 1. **Open in Codespaces**: Click the "Code" button → "Codespaces" → "Create codespace on main"
 2. **Wait for Setup**: The environment will automatically install dependencies (3-5 minutes)
 3. **Start Development**: All services will be ready to use
+
+#### Development Environment Comparison
+
+| Feature | GitHub Codespaces | Local Development |
+|---------|-------------------|-------------------|
+| **Setup Time** | 3-5 minutes (automated) | 15-30 minutes (manual) |
+| **Prerequisites** | Just a browser | Node.js, PostgreSQL, Android Studio/Xcode |
+| **Database** | ✅ Auto-configured PostgreSQL | ⚙️ Manual PostgreSQL setup |
+| **Environment Variables** | ✅ Pre-configured | ⚙️ Manual .env configuration |
+| **Port Forwarding** | ✅ Automatic (3000, 8081, 5432) | ⚙️ localhost only |
+| **VS Code Extensions** | ✅ Auto-installed | ⚙️ Manual installation |
+| **Mobile Device Testing** | ❌ Limited (web preview only) | ✅ Full device testing |
+| **Performance** | ⚙️ Cloud-dependent | ✅ Local machine speed |
+| **Collaboration** | ✅ Easy sharing | ⚙️ Complex setup sharing |
+
+**Recommendation:** Use **Codespaces** for quick development, API testing, and collaboration. Use **Local Development** for mobile device testing and when you need full control over the environment.
 
 #### Environment Configuration
 Codespaces automatically configures:
