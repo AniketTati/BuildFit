@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -6,10 +6,12 @@ import {
   ScrollView,
   TouchableOpacity,
   SafeAreaView,
+  Alert,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { setWorkouts } from '../store/slices/workoutSlice';
+import PublishWorkoutModal from '../components/PublishWorkoutModal';
 
 /**
  * Workout Screen
@@ -18,6 +20,8 @@ import { setWorkouts } from '../store/slices/workoutSlice';
 const WorkoutScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const { workouts } = useSelector(state => state.workout);
+  const [showPublishModal, setShowPublishModal] = useState(false);
+  const [workoutToPublish, setWorkoutToPublish] = useState(null);
 
   const sampleWorkouts = [
     {
@@ -193,6 +197,30 @@ const WorkoutScreen = ({ navigation }) => {
     });
   };
 
+  const handlePublishWorkout = (workout) => {
+    setWorkoutToPublish(workout);
+    setShowPublishModal(true);
+  };
+
+  const handlePublish = async (publishInfo) => {
+    try {
+      // Simulate API call to publish workout
+      console.log('Publishing workout:', publishInfo);
+      
+      // In a real app, this would make an API call to your backend
+      // await api.publishWorkout(publishInfo);
+      
+      Alert.alert(
+        'Published Successfully!',
+        `"${publishInfo.name}" has been published to the community.`,
+        [{ text: 'OK' }]
+      );
+    } catch (error) {
+      console.error('Error publishing workout:', error);
+      Alert.alert('Error', 'Failed to publish workout. Please try again.');
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -242,30 +270,48 @@ const WorkoutScreen = ({ navigation }) => {
               </TouchableOpacity>
             </View>
             {customWorkouts.map((workout) => (
-              <TouchableOpacity 
-                key={workout.id} 
-                style={[styles.workoutCard, styles.customWorkoutCard]}
-                onPress={() => startWorkout(workout)}
-              >
-                <View style={styles.workoutInfo}>
-                  <Text style={styles.workoutName}>{workout.name}</Text>
-                  <Text style={styles.workoutDescription}>{workout.description}</Text>
-                  <View style={styles.workoutMetaRow}>
-                    <Text style={styles.workoutMeta}>
-                      {workout.exercises.length} exercises • {Math.round(workout.duration / 60)} min
-                    </Text>
-                    <View style={styles.customBadge}>
-                      <Text style={styles.customBadgeText}>CUSTOM</Text>
-                    </View>
-                  </View>
-                </View>
+              <View key={workout.id} style={[styles.workoutCard, styles.customWorkoutCard]}>
                 <TouchableOpacity 
-                  style={styles.startButton}
+                  style={styles.workoutMainContent}
                   onPress={() => startWorkout(workout)}
                 >
-                  <Icon name="play-arrow" size={24} color="#FFFFFF" />
+                  <View style={styles.workoutInfo}>
+                    <Text style={styles.workoutName}>{workout.name}</Text>
+                    <Text style={styles.workoutDescription}>{workout.description}</Text>
+                    <View style={styles.workoutMetaRow}>
+                      <Text style={styles.workoutMeta}>
+                        {workout.exercises.length} exercises • {Math.round(workout.duration / 60)} min
+                      </Text>
+                      <View style={styles.customBadge}>
+                        <Text style={styles.customBadgeText}>CUSTOM</Text>
+                      </View>
+                    </View>
+                  </View>
+                  <TouchableOpacity 
+                    style={styles.startButton}
+                    onPress={() => startWorkout(workout)}
+                  >
+                    <Icon name="play-arrow" size={24} color="#FFFFFF" />
+                  </TouchableOpacity>
                 </TouchableOpacity>
-              </TouchableOpacity>
+                
+                <View style={styles.workoutActions}>
+                  <TouchableOpacity 
+                    style={styles.actionButton}
+                    onPress={() => handlePublishWorkout(workout)}
+                  >
+                    <Icon name="share" size={16} color="#4CAF50" />
+                    <Text style={styles.actionButtonText}>Share</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity 
+                    style={styles.actionButton}
+                    onPress={() => navigation.navigate('CommunityWorkouts')}
+                  >
+                    <Icon name="explore" size={16} color="#2196F3" />
+                    <Text style={styles.actionButtonText}>Discover</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
             ))}
           </View>
         )}

@@ -32,6 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Import routes
 const authRoutes = require('./routes/auth');
+const workoutRoutes = require('./routes/workouts');
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -45,6 +46,7 @@ app.get('/health', (req, res) => {
 
 // API routes
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/workouts', workoutRoutes);
 
 // API routes placeholder
 app.get('/api/v1', (req, res) => {
