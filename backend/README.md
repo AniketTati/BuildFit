@@ -4,6 +4,7 @@ Express.js API server for BuildFit fitness platform.
 
 ## Quick Start
 
+### Local Development
 ```bash
 cd backend
 npm install
@@ -11,6 +12,16 @@ cp .env.example .env    # Configure database
 npm run migrate         # Setup database  
 npm run dev            # Start server (http://localhost:3000)
 ```
+
+### GitHub Codespaces
+```bash
+cd backend
+# .env is automatically created by Codespaces setup
+npm run migrate         # Setup database tables
+npm run seed           # Load sample data (optional)
+npm run dev            # Start server
+```
+*API will be available at `https://[codespace-name]-3000.githubpreview.dev`*
 
 ## API Endpoints
 
